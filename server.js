@@ -53,4 +53,42 @@ server.get('/api/tasks', (req, res) => {
     });
 });
 
+server.post('/api/resources', (req, res) => {
+  Projects.addResource(req.body)
+    .then(id => {
+      res.status(201).json(id);
+    })
+    .catch(error => {
+      console.log(error);
+      res.status(500).json({
+        error: 'Failed to save new resource.'
+      });
+    });
+});
+
+server.post('/api/projects', (req, res) => {
+  Projects.addProject(req.body)
+    .then(id => {
+      res.status(201).json(id);
+    })
+    .catch(error => {
+      console.log(error);
+      res.status(500).json({
+        error: 'Failed to save new project.'
+      });
+    });
+});
+
+server.post('/api/tasks', (req, res) => {
+  Projects.addTask(req.body)
+    .then(id => {
+      res.status(201).json(id);
+    })
+    .catch(error => {
+      console.log(error);
+      res.status(500).json({
+        error: 'Failed to save new task.'
+      });
+    });
+});
 module.exports = server;

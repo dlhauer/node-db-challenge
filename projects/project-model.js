@@ -10,7 +10,11 @@ module.exports = {
 }
 
 function addResource(resourceData) {
-
+  return db('resources')
+          .insert(resourceData)
+          .then(([id]) => {
+            return id;
+          })
 }
 
 function getResources() {
@@ -18,7 +22,11 @@ function getResources() {
 }
 
 function addProject(projectData) {
-
+  return db('projects')
+  .insert(projectData)
+  .then(([id]) => {
+    return id;
+  })
 }
 
 function getProjects() {
@@ -26,7 +34,11 @@ function getProjects() {
 }
 
 function addTask(taskData) {
-
+  return db('tasks')
+  .insert(taskData)
+  .then(([id]) => {
+    return id;
+  })
 }
 
 function getTasks() {
