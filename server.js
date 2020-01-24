@@ -4,10 +4,19 @@ const server = express();
 
 server.use(express.json());
 
+function booleanConverter(obj) {
+  const completed = obj.completed === 0 ? false : true;
+  return {
+    ...obj,
+    completed: completed
+  }
+}
+
 server.get('/api/projects', (req, res) => {
   Projects.getProjects()
     .then(projects => {
-      res.status(200).json(projects);
+      const booleanProjects = projects.map(project => booleanConverter(project));
+      res.status(200).json(booleanProjects);
     })
     .catch(error => {
       console.log(error);
@@ -33,7 +42,8 @@ server.get('/api/resources', (req, res) => {
 server.get('/api/tasks', (req, res) => {
   Projects.getTasks()
     .then(tasks => {
-      res.status(200).json(tasks);
+      const booleanTasks = tasks.map(task => booleanConverter(task));
+      res.status(200).json(booleanTasks);
     })
     .catch(error => {
       console.log(error);
