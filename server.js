@@ -53,6 +53,19 @@ server.get('/api/tasks', (req, res) => {
     });
 });
 
+server.get('/api/projects/resources', (req, res) => {
+  Projects.getProjectResources()
+    .then(projectResources => {
+      res.status(200).json(projectResources);
+    })
+    .catch(error => {
+      console.log(error);
+      res.status(500).json({
+        error: 'Failed to get project resources'
+      });
+    });
+});
+
 server.post('/api/resources', (req, res) => {
   Projects.addResource(req.body)
     .then(id => {

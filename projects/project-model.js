@@ -5,6 +5,7 @@ module.exports = {
   getResources,
   addProject,
   getProjects,
+  getProjectResources,
   addTask,
   getTasks
 }
@@ -31,6 +32,14 @@ function addProject(projectData) {
 
 function getProjects() {
   return db.select('*').from('projects');
+}
+
+function getProjectResources() {
+  return db('project_resources as pr')
+          .join('projects as p', 'p.id', 'pr.project_id')
+          .join('resources as r', 'r.id', 'pr.resource_id')
+          .select('p.project_name', 'r.resource_name')
+          .orderBy('p.id');
 }
 
 function addTask(taskData) {
